@@ -49,7 +49,6 @@ alias shell:clean="sudo rm -rf /private/var/log/asl/*.asl"
 alias subl="subl -n --command toggle_full_screen"
 alias django:manage='python manage.py'
 alias django:admin='django-admin.py'
-alias sketch:renew='rm -rf /Users/caiogondim/Library/Application Application\ Support/sketch/'
 alias zshconfig="subl -w ~/.zshrc"
 alias ohmyzsh="subl -w ~/.oh-my-zsh"
 alias ll="ls -laFs"
