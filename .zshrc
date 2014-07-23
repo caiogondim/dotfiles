@@ -67,7 +67,3 @@ unsetopt correct_all
 export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=$HOME/work
 source `which virtualenvwrapper.sh`
-
-# pip
-# pip should only run if there is a virtualenv currently activated
-# export PIP_REQUIRE_VIRTUALENV=true
