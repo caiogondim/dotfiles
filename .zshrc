@@ -41,9 +41,6 @@ LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
 
-# alis git to hub
-# eval "$(hub alias -s)"
-
 #
 alias shell:clean="sudo rm -rf /private/var/log/asl/*.asl"
 alias subl="subl -n --command toggle_full_screen"
