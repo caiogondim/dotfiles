@@ -16,7 +16,7 @@
   p = !"git pull; git submodule foreach git pull origin master"
 
   # Pull with rebase
-  pr = git pull --rebase
+  pr = pull --rebase
   
   # Clone a repository including all submodules
   c = clone --recursive
