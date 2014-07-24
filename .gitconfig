@@ -25,7 +25,7 @@
   ca = !git add -A && git commit -av
 
   # Commit alias
-  ci = commit
+  ci = commit -v
 
   # Switch to a branch, creating it if necessary
   go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
