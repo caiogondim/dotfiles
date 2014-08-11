@@ -115,8 +115,8 @@
 
 [help]
 
-  # Automatically correct and execute mistyped commands
-  autocorrect = 1
+  # Don't correct and execute mistyped commands
+  autocorrect = 0
 
 [merge]
 
