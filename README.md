@@ -26,6 +26,13 @@ cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
+## Credits
+
+That project is highly inspired in those ones:
+
+- [Mathias Bynen's dotfiles](https://github.com/mathiasbynens/dotfiles)
+
+
 ## License
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
