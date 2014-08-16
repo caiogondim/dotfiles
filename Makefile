@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------------------
 # COLOR DEFINITION
 # ------------------------------------------------------------------------------
+
 COLOR_NORMAL = \x1b[0m
 
 COLOR_ATTR_NONE = \x1b[00;01m
@@ -28,8 +29,31 @@ COLOR_BG_MAGENTA = \x1b[45;01m
 COLOR_BG_CYAN = \x1b[46;01m
 COLOR_BG_WHITE = \x1b[47;01m
 
+
 # ------------------------------------------------------------------------------
 # TASKS
 # ------------------------------------------------------------------------------
-install:
-	@echo "$(COLOR_ATTR_REVERSE)Ipsum$(COLOR_NORMAL) lorem"
+
+install: configure_git
+
+configure_git:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Installing git files...$(COLOR_NORMAL)"
+
+	@# Moves git files to ~
+	@cp .gitignore ~/.gitignore
+	@cp .gitconfig ~/.gitconfig
+
+	@# Asks for git email
+	@echo "What is your $(COLOR_ATTR_BOLD)git e-mail$(COLOR_NORMAL)? $(COLOR_FG_BLACK)Eg. john.applessed@gmail.com$(COLOR_NORMAL)"; \
+	read git_email; \
+	sed_pattern="s/# email = {{git_email}}/  email = "$$git_email"/g"; \
+	sed -i '' "$$sed_pattern" ~/.gitconfig
+
+	@echo ""
+
+	@# Asks for git name
+	@echo "What is your $(COLOR_ATTR_BOLD)git name$(COLOR_NORMAL)? $(COLOR_FG_BLACK)Eg. John Appleseed$(COLOR_NORMAL)"; \
+	read git_name; \
+	sed_pattern="s/# name = {{git_name}}/  name = "$$git_name"/g"; \
+	sed -i '' "$$sed_pattern" ~/.gitconfig

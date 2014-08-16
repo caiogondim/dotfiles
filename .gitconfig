@@ -151,3 +151,7 @@
 [url "git://gist.github.com/"]
 
   insteadOf = "gist:"
+
+[user]
+# email = {{git_email}}
+# name = {{git_name}}
