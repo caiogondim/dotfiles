@@ -297,3 +297,13 @@ defaults write org.m0k.transmission WarningDonate -bool false
 
 # Hide the legal disclaimer
 defaults write org.m0k.transmission WarningLegal -bool false
+
+
+# ------------------------------------------------------------------------------
+# KILL AFFECTED APPLICATIONS
+# ------------------------------------------------------------------------------
+for app in "Activity Monitor" "cfprefsd" \
+  "Dock" "Finder" "Mail" "Safari" "SystemUIServer" \
+  "Terminal" "Transmission"; do
+  killall "${app}" > /dev/null 2>&1
+done
