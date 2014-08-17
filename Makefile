@@ -34,7 +34,7 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: exit_if_not_osx configure_git
+install: exit_if_not_osx configure_git configure_vim
 
 install_homebrew:
 	@echo ""
@@ -69,3 +69,9 @@ ifneq ($(shell uname -s),Darwin)
 	@echo "$(COLOR_FG_RED)That install script supports only OS X$(COLOR_FG_NORMAL)"
 	@exit 1
 endif
+
+configure_vim:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Configuring Vim...$(COLOR_NORMAL)"
+
+	@cp .vimrc ~/.vimrc
