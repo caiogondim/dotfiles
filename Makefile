@@ -34,7 +34,13 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: configure_git
+install: exit_if_not_osx configure_git
+
+install_homebrew:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Installing homebrew...$(COLOR_NORMAL)"
+	@homebrew_script=`curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install`; \
+	`ruby -e $$homebrew_script`
 
 configure_git:
 	@echo ""
@@ -57,3 +63,9 @@ configure_git:
 	read git_name; \
 	sed_pattern="s/# name = {{git_name}}/  name = "$$git_name"/g"; \
 	sed -i '' "$$sed_pattern" ~/.gitconfig
+
+exit_if_not_osx:
+ifneq ($(shell uname -s),Darwin)
+	@echo "$(COLOR_FG_RED)That install script supports only OS X$(COLOR_FG_NORMAL)"
+	@exit 1
+endif
