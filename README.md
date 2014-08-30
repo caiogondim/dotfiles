@@ -1,7 +1,7 @@
 # dotfiles
 
 <img
-  src="https://raw.githubusercontent.com/caiogondim/dotfiles/master/assets/logo/logo.png"
+  src="https://raw.githubusercontent.com/caiogondim/dotfiles/master/logo/logo.png"
   width="256"
   align="right"
 />
