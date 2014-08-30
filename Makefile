@@ -34,7 +34,7 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: exit_if_not_osx configure_git configure_vim
+install: exit_if_not_osx configure_osx configure_git configure_vim
 
 install_homebrew:
 	@echo ""
@@ -75,3 +75,9 @@ configure_vim:
 	@echo "$(COLOR_FG_GREEN)Configuring Vim...$(COLOR_NORMAL)"
 
 	@cp .vimrc ~/.vimrc
+
+configure_osx:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Configuring OS X...$(COLOR_NORMAL)"
+
+	@./.osx
