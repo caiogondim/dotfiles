@@ -34,13 +34,24 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: exit_if_not_osx configure_osx configure_git configure_vim
+install: install_oh_my_zsh configure_oh_my_zsh configure_git configure_vim
 
 install_homebrew:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Installing homebrew...$(COLOR_NORMAL)"
 	@homebrew_script=`curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install`; \
 	`ruby -e $$homebrew_script`
+
+install_oh_my_zsh:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Installing oh-my-zsh...$(COLOR_NORMAL)"
+	@curl -L http://install.ohmyz.sh | sh
+
+configure_oh_my_zsh:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Configuring oh-my-zsh...$(COLOR_NORMAL)"
+
+	@cp .zshrc ~/.zshrc
 
 configure_git:
 	@echo ""
@@ -81,3 +92,4 @@ configure_osx:
 	@echo "$(COLOR_FG_GREEN)Configuring OS X...$(COLOR_NORMAL)"
 
 	@./.osx
+
