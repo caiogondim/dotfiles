@@ -34,7 +34,7 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: install_oh_my_zsh configure_oh_my_zsh configure_git configure_vim
+install: install_oh_my_zsh configure_oh_my_zsh configure_git configure_vim configure_jshint
 
 install_homebrew:
 	@echo ""
@@ -93,3 +93,7 @@ configure_osx:
 
 	@./.osx
 
+configure_jshint:
+	@echo ""	
+	@echo "Copying .jshintrc to ~ ... "
+	@cp .jshintrc ~/.jshintrc
