@@ -92,5 +92,5 @@
   "validateQuoteMarks": "'",
   "validateIndentation": 2,
   "validateParameterSeparator": ", ",
-  "safeContextKeyword": ["that"]
+  "safeContextKeyword": ["self"]
 }
