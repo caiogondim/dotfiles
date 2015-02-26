@@ -67,3 +67,6 @@ unsetopt correct_all
 export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=$HOME/work
 source `which virtualenvwrapper.sh`
+
+# Vim as MANPAGER
+export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
