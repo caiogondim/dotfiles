@@ -40,21 +40,41 @@ configure_oh_my_zsh:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Configuring oh-my-zsh...$(COLOR_NORMAL)"
 
-	cp .zshrc ~/.zshrc
+	@if [ -f ~/.zshrc ]; \
+	then \
+		echo "mv ~/.zshrc ~/.zshrc.bak"; \
+		mv ~/.zshrc ~/.zshrc.bak; \
+	fi;
+	ln -sf $(PWD)/.zshrc ~/.zshrc
 
 configure_eslint:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Configuring ESLint...$(COLOR_NORMAL)"
 
-	cp .eslintrc ~/.eslintrc
+	@if [ -f ~/.eslintrc ]; \
+	then \
+		echo "mv ~/.eslintrc ~/.eslintrc.bak"; \
+		mv ~/.eslintrc ~/.eslintrc.bak; \
+	fi;
+	ln -sf $(PWD)/.eslintrc ~/.eslintrc
 
 configure_git:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Configuring git...$(COLOR_NORMAL)"
 
-	@# Moves git files to ~
-	cp .gitignore ~/.gitignore
-	cp .gitconfig ~/.gitconfig
+	@if [ -f ~/.gitignore ]; \
+	then \
+		echo "mv ~/.gitignore ~/.gitignore.bak"; \
+		mv ~/.gitignore ~/.gitignore.bak; \
+	fi;
+	@if [ -f ~/.gitconfig ]; \
+	then \
+		echo "mv ~/.gitconfig ~/.gitconfig.bak"; \
+		mv ~/.gitconfig ~/.gitconfig.bak; \
+	fi;
+
+	ln -sf $(PWD)/.gitignore ~/.gitignore
+	ln -sf $(PWD)/.gitconfig ~/.gitconfig
 
 	@# Asks for git email
 	@echo ""
@@ -71,17 +91,22 @@ configure_git:
 	sed_pattern="s/# name = {{git_name}}/  name = "$$git_name"/g"; \
 	sed -i '' "$$sed_pattern" ~/.gitconfig
 
+configure_vim:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Configuring Vim...$(COLOR_NORMAL)"
+
+	@if [ -f ~/.vimrc ]; \
+	then \
+		echo "mv ~/.vimrc ~/.vimrc.bak"; \
+		mv ~/.vimrc ~/.vimrc.bak; \
+	fi;
+	ln -sf $(PWD)/.vimrc ~/.vimrc
+
 exit_if_not_osx:
 ifneq ($(shell uname -s),Darwin)
 	@echo "$(COLOR_FG_RED)That install script supports only OS X$(COLOR_FG_NORMAL)"
 	@exit 1
 endif
-
-configure_vim:
-	@echo ""
-	@echo "$(COLOR_FG_GREEN)Configuring Vim...$(COLOR_NORMAL)"
-
-	cp .vimrc ~/.vimrc
 
 configure_osx:
 	@echo ""
