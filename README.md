@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/caiogondim/dotfiles/master/logo/logo.svg">
+<img src="https://rawgit.com/caiogondim/dotfiles/master/logo/logo.svg">
 
 # dotfiles
 
