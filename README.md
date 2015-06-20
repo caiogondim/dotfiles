@@ -2,25 +2,43 @@
 
 # dotfiles
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+My dotfiles with configuration for:
+- ESLint
+- git
+- OS X
+- Vim
+- ZSH
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+The ZSH theme i use is [Bullet train](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme).
+For tmux, i use [Maglev](https://github.com/caiogondim/maglev).
 
 ## Installing
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Clone the repo:
 
+```bash
+git clone git@github.com:caiogondim/dotfiles.git
+```
+
+And install it:
+
+```bash
+make install
+```
+
+This will symlink all the configuration files. If you already have a, for
+instance, `.vimrc`, a backup copy will be created as `.vimrc.bak`.
+
+## Updating
+
+To update, update the repo and you are good to go.
+
+```bash
+git pull --rebase
+```
+
+If you need to personalize ZSH, you can use the `~.zshrc.local`. This way you
+don't need to resolve conflicts between every `git pull`.
 
 ## Credits
 
@@ -28,13 +46,3 @@ That project is highly inspired in those ones:
 
 - [Mathias Bynen's dotfiles](https://github.com/mathiasbynens/dotfiles)
 - Icon by Mat Stevens, from the Noun Project
-
-
-## License
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
