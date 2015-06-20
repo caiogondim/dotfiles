@@ -1,10 +1,6 @@
-# dotfiles
+<img src="https://raw.githubusercontent.com/caiogondim/dotfiles/master/logo/logo.svg">
 
-<img
-  src="https://raw.githubusercontent.com/caiogondim/dotfiles/master/logo/logo.png"
-  width="256"
-  align="right"
-/>
+# dotfiles
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -31,6 +27,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 That project is highly inspired in those ones:
 
 - [Mathias Bynen's dotfiles](https://github.com/mathiasbynens/dotfiles)
+- Icon by Mat Stevens, from the Noun Project
 
 
 ## License
