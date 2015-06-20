@@ -34,34 +34,30 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: install_oh_my_zsh configure_oh_my_zsh configure_git configure_vim configure_jshint
-
-install_homebrew:
-	@echo ""
-	@echo "$(COLOR_FG_GREEN)Installing homebrew...$(COLOR_NORMAL)"
-	@homebrew_script=`curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install`; \
-	`ruby -e $$homebrew_script`
-
-install_oh_my_zsh:
-	@echo ""
-	@echo "$(COLOR_FG_GREEN)Installing oh-my-zsh...$(COLOR_NORMAL)"
-	@curl -L http://install.ohmyz.sh | sh
+install: configure_oh_my_zsh configure_eslint configure_git configure_vim exit_if_not_osx configure_osx
 
 configure_oh_my_zsh:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Configuring oh-my-zsh...$(COLOR_NORMAL)"
 
-	@cp .zshrc ~/.zshrc
+	cp .zshrc ~/.zshrc
+
+configure_eslint:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Configuring ESLint...$(COLOR_NORMAL)"
+
+	cp .eslintrc ~/.eslintrc
 
 configure_git:
 	@echo ""
-	@echo "$(COLOR_FG_GREEN)Installing git files...$(COLOR_NORMAL)"
+	@echo "$(COLOR_FG_GREEN)Configuring git...$(COLOR_NORMAL)"
 
 	@# Moves git files to ~
-	@cp .gitignore ~/.gitignore
-	@cp .gitconfig ~/.gitconfig
+	cp .gitignore ~/.gitignore
+	cp .gitconfig ~/.gitconfig
 
 	@# Asks for git email
+	@echo ""
 	@echo "What is your $(COLOR_ATTR_BOLD)git e-mail$(COLOR_NORMAL)? $(COLOR_FG_BLACK)Eg. john.applessed@gmail.com$(COLOR_NORMAL)"; \
 	read git_email; \
 	sed_pattern="s/# email = {{git_email}}/  email = "$$git_email"/g"; \
@@ -85,15 +81,10 @@ configure_vim:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Configuring Vim...$(COLOR_NORMAL)"
 
-	@cp .vimrc ~/.vimrc
+	cp .vimrc ~/.vimrc
 
 configure_osx:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Configuring OS X...$(COLOR_NORMAL)"
 
-	@./.osx
-
-configure_jshint:
-	@echo ""	
-	@echo "Copying .jshintrc to ~ ... "
-	@cp .jshintrc ~/.jshintrc
+	./.osx
