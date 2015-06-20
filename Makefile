@@ -47,6 +47,11 @@ configure_oh_my_zsh:
 	fi;
 	ln -sf $(PWD)/.zshrc ~/.zshrc
 
+	@if [ ! -f ~/.zshrc.local ]; \
+	then \
+		touch ~/.zshrc.local; \
+	fi;
+
 configure_eslint:
 	@echo ""
 	@echo "$(COLOR_FG_GREEN)Configuring ESLint...$(COLOR_NORMAL)"
