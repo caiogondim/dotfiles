@@ -34,7 +34,7 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: configure_oh_my_zsh configure_eslint configure_git configure_vim exit_if_not_osx configure_osx
+install: configure_oh_my_zsh configure_eslint configure_git configure_vim
 
 configure_oh_my_zsh:
 	@echo ""
@@ -106,15 +106,3 @@ configure_vim:
 		mv ~/.vimrc ~/.vimrc.bak; \
 	fi;
 	ln -sf $(PWD)/.vimrc ~/.vimrc
-
-exit_if_not_osx:
-ifneq ($(shell uname -s),Darwin)
-	@echo "$(COLOR_FG_RED)That install script supports only OS X$(COLOR_FG_NORMAL)"
-	@exit 1
-endif
-
-configure_osx:
-	@echo ""
-	@echo "$(COLOR_FG_GREEN)Configuring OS X...$(COLOR_NORMAL)"
-
-	./.osx
