@@ -34,7 +34,7 @@ COLOR_BG_WHITE = \x1b[47;01m
 # TASKS
 # ------------------------------------------------------------------------------
 
-install: configure_oh_my_zsh configure_eslint configure_git configure_vim
+install: configure_oh_my_zsh configure_eslint configure_git configure_vim exit_if_not_osx configure_slate
 
 configure_oh_my_zsh:
 	@echo ""
@@ -106,3 +106,20 @@ configure_vim:
 		mv ~/.vimrc ~/.vimrc.bak; \
 	fi;
 	ln -sf $(PWD)/.vimrc ~/.vimrc
+
+exit_if_not_osx:
+	ifneq ($(shell uname -s),Darwin)
+		@echo "$(COLOR_FG_RED)That install script supports only OS X$(COLOR_FG_NORMAL)"
+		@exit 1
+	endif
+
+configure_slate:
+	@echo ""
+	@echo "$(COLOR_FG_GREEN)Configuring slate...$(COLOR_NORMAL)"
+
+	@if [ -f ~/.slate.js ]; \
+	then \
+		echo "mv ~/.slate.js ~/.slate.js.bak"; \
+		mv ~/.slate.js ~/.slate.js.bak; \
+	fi;
+	ln -sf $(PWD)/.slate.js ~/.slate.js
