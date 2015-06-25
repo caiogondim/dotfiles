@@ -108,10 +108,11 @@ configure_vim:
 	ln -sf $(PWD)/.vimrc ~/.vimrc
 
 exit_if_not_osx:
-	ifneq ($(shell uname -s),Darwin)
-		@echo "$(COLOR_FG_RED)That install script supports only OS X$(COLOR_FG_NORMAL)"
-		@exit 1
-	endif
+	@if [[ "$$OSTYPE" != *"darwin"* ]]; \
+	then \
+		echo "$(COLOR_FG_RED)That install script supports only OS X$(COLOR_FG_NORMAL)"; \
+		exit 1; \
+	fi;
 
 configure_slate:
 	@echo ""
