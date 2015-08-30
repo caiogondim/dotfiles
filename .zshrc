@@ -5,6 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+BULLETTRAIN_DIR_EXTENDED=2
 ZSH_THEME="bullet-train"
 # ZSH_THEME="agnoster"
 
