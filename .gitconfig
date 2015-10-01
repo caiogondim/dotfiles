@@ -67,7 +67,7 @@
   contributors = shortlog --summary --numbered
 
   #
-  pp = "!git up && git push"
+  pupu = "!git up && git push"
 
 [apply]
 
