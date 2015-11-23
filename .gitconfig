@@ -162,3 +162,6 @@
 [user]
 # email = {{git_email}}
 # name = {{git_name}}
+
+[commit]
+  template = ~/.git-commit-msg-tmpl

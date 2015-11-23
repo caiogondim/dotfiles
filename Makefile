@@ -79,6 +79,7 @@ configure_git:
 	fi;
 
 	ln -sf $(PWD)/.gitignore ~/.gitignore
+	ln -sf $(PWD)/.git-commit-msg-tmpl ~/.git-commit-msg-tmpl
 	ln -sf $(PWD)/.gitconfig ~/.gitconfig
 
 	@# Asks for git email
