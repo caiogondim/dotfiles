@@ -6,8 +6,8 @@
   # View the current working tree status using the short format
   s = status -s
 
-  # Show the diff between the latest commit and the current state
-  d = !"git diff-index --quiet HEAD --; git --no-pager diff --patch-with-stat"
+  # Show the diff between the latest commit and the current state, ignoring whitespace
+  d = !"git diff-index --quiet HEAD --; git --no-pager diff --patch-with-stat -w"
 
   # Better git grep
   g = grep --break --heading --line-number
