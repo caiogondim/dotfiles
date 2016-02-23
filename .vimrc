@@ -132,3 +132,8 @@ if has("autocmd")
   " Treat .json files as .js
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
+
+"
+if has('gui_macvim')
+  set guifont=Sauce\ Code\ Powerline:h13
+endif
