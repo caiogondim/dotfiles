@@ -133,7 +133,10 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
 
-"
+" MacVim options
 if has('gui_macvim')
   set guifont=Sauce\ Code\ Powerline:h13
+	" Remove scrollbars
+	set guioptions-=L
+	set guioptions-=r
 endif
