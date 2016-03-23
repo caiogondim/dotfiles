@@ -8,6 +8,7 @@ ZSH=$HOME/.oh-my-zsh
 BULLETTRAIN_DIR_EXTENDED=2
 BULLETTRAIN_GIT_COLORIZE_DIRTY=true
 BULLETTRAIN_GIT_PROMPT_CMD=\${\$(git_prompt_info)//\\//\ \ }
+BULLETTRAIN_GIT_CLEAN=" ✔"
 ZSH_THEME="bullet-train"
 # ZSH_THEME="agnoster"
 
