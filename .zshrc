@@ -68,9 +68,9 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 unsetopt correct_all
 
 # virtualenv
-export WORKON_HOME=$HOME/.virtualenvs
+# export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=$HOME/work
-source `which virtualenvwrapper.sh`
+# source `which virtualenvwrapper.sh`
 
 # Vim as MANPAGER
 export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
