@@ -172,3 +172,4 @@
 
 [commit]
   template = ~/.git-commit-msg-tmpl
+  gpgsign = true
