@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+git grep --color=always -C 2 -F "$1" | cat
