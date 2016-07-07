@@ -119,6 +119,12 @@
   changed = green
   untracked = cyan
 
+[color "grep"]
+
+  linenumber = bold
+  match = yellow
+  filename = bold
+
 [diff]
 
   # Detect copies as well as renames
