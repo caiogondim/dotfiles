@@ -143,6 +143,9 @@
 	# Shows conflict in diff3 format
 	conflictstyle = diff3
 
+  tool = vimdiff
+  prompt = false
+
 [grep]
   linenumber = true
 
