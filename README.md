@@ -26,6 +26,12 @@ And install it:
 make install
 ```
 
+To use commands inside `bin` folder, put it on `$PATH`
+
+```bash
+export PATH=$PATH:~/code/dotfiles/bin
+```
+
 This will symlink all the configuration files. If you already have a, for
 instance, `.vimrc`, a backup copy will be created as `.vimrc.bak`.
 
