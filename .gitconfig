@@ -92,16 +92,14 @@
   # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
   trustctime = false
 
-	editor = "vim -f"
+  editor = "vim -f"
 
-	# https://git-scm.com/docs/git-update-index#_untracked_cache
-	untrackedCache = true
+  # https://git-scm.com/docs/git-update-index#_untracked_cache
+  untrackedCache = true
 
 [color]
 
-  # Use colors in Git commands that are capable of colored output when
-  # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-  ui = auto
+  ui = always
 
 [color "branch"]
 
@@ -112,9 +110,18 @@
 [color "diff"]
 
   meta = yellow bold
-  frag = magenta bold # line info
-  old = red # deletions
-  new = green # additions
+  commit = green bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+  
+[color "diff-highlight"]
+
+  oldNormal = red bold
+  oldHighlight = red bold
+  newNormal = green bold
+  newHighlight = green bold
 
 [color "status"]
 
@@ -143,8 +150,8 @@
   # Include summaries of merged commits in newly created merge commit messages
   log = true
 
-	# Shows conflict in diff3 format
-	conflictstyle = diff3
+  # Shows conflict in diff3 format
+  conflictstyle = diff3
 
   tool = vimdiff
   prompt = false
