@@ -79,3 +79,6 @@ export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu
 
 # Loads user conf
 source ~/.zshrc.local
+
+#
+source ~/.credentials

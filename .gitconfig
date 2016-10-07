@@ -193,5 +193,5 @@
 # name = {{git_name}}
 
 [commit]
-  template = ~/.git-commit-msg-tmpl
-  gpgsign = true
+  # template = ~/.git-commit-msg-tmpl
+  # gpgsign = true
