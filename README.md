@@ -10,6 +10,14 @@ This project uses the native Node.js task runner to execute scripts. To run a sc
 
 - `node --run sync`: Synchronizes and installs all agent skills. Executes `scripts/sync` to copy skills from this repository (`skills/`) to your local agent directories (`~/.claude/skills`, `~/.pi/agent/skills`, and `~/.gemini/antigravity/skills`).
 
+## Claude
+
+The global Claude Code instructions live in `claude/CLAUDE.md`. Link the file to its place in `~/.claude`:
+
+```sh
+ln -s "$PWD/claude/CLAUDE.md" ~/.claude/CLAUDE.md
+```
+
 ## Credits
 
 That project is highly inspired in those ones:
