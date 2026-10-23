@@ -1,0 +1,12 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "Personal dotfiles",
+  "type": "module",
+  "scripts": {
+    "sync": "./scripts/sync-skills && ./scripts/sync-extensions",
+    "sync:apply": "./scripts/sync-skills --apply && ./scripts/sync-extensions --apply",
+    "sync:skills": "./scripts/sync-skills",
+    "sync:extensions": "./scripts/sync-extensions"
+  }
+}

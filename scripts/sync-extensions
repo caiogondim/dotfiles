@@ -1,0 +1,121 @@
+#!/usr/bin/env node
+
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import url from 'node:url';
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+const DOTFILES_DIR = path.resolve(__dirname, '..');
+const EXT_SRC = path.join(DOTFILES_DIR, 'pi-extensions');
+const HOME = os.homedir();
+
+const TARGET_DIR = path.join(HOME, '.pi', 'agent', 'extensions');
+
+async function getEntries(source) {
+  try {
+    const entries = await fs.readdir(source, { withFileTypes: true });
+    return {
+      files: entries.filter(e => e.isFile()).map(e => e.name),
+      dirs: entries.filter(e => e.isDirectory()).map(e => e.name),
+    };
+  } catch (err) {
+    if (err.code === 'ENOENT') return { files: [], dirs: [] };
+    throw err;
+  }
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const apply = args.includes('--apply');
+
+  if (!apply) {
+    console.log('🔍 Dry run — pass --apply to sync\n');
+  }
+
+  const src = await getEntries(EXT_SRC);
+  const dest = await getEntries(TARGET_DIR);
+
+  const srcSet = new Set([...src.files, ...src.dirs]);
+  const destSet = new Set([...dest.files, ...dest.dirs]);
+
+  const newItems = [];
+  const replacedItems = [];
+  const removedItems = [];
+
+  for (const name of [...src.files, ...src.dirs]) {
+    const isDir = src.dirs.includes(name);
+    const suffix = isDir ? '/' : '';
+    if (destSet.has(name)) {
+      replacedItems.push(name + suffix);
+    } else {
+      newItems.push(name + suffix);
+    }
+  }
+
+  for (const name of [...dest.files, ...dest.dirs]) {
+    if (!srcSet.has(name)) {
+      const isDir = dest.dirs.includes(name);
+      removedItems.push(name + (isDir ? '/' : ''));
+    }
+  }
+
+  console.log(`pi-extensions → ${TARGET_DIR}`);
+
+  if (newItems.length) {
+    console.log('  new:');
+    for (const item of newItems) console.log(`    + ${item}`);
+  }
+  if (replacedItems.length) {
+    console.log('  replace:');
+    for (const item of replacedItems) console.log(`    ~ ${item}`);
+  }
+  if (removedItems.length) {
+    console.log('  remove:');
+    for (const item of removedItems) console.log(`    - ${item}`);
+  }
+
+  if (!newItems.length && !replacedItems.length && !removedItems.length) {
+    console.log('  (in sync)');
+  }
+
+  console.log('');
+
+  if (!apply) {
+    const total = newItems.length + replacedItems.length + removedItems.length;
+    if (total > 0) {
+      console.log(`Would sync ${total} items (${newItems.length} new, ${replacedItems.length} replaced, ${removedItems.length} removed)`);
+      console.log('Run with --apply to sync');
+    }
+    return;
+  }
+
+  // Apply
+  await fs.mkdir(TARGET_DIR, { recursive: true });
+
+  // Remove stale files
+  for (const name of removedItems) {
+    const cleanName = name.replace(/\/$/, '');
+    await fs.rm(path.join(TARGET_DIR, cleanName), { recursive: true, force: true });
+  }
+
+  // Copy files
+  for (const file of src.files) {
+    await fs.copyFile(path.join(EXT_SRC, file), path.join(TARGET_DIR, file));
+  }
+
+  // Copy directories
+  for (const dir of src.dirs) {
+    const target = path.join(TARGET_DIR, dir);
+    await fs.rm(target, { recursive: true, force: true });
+    await fs.cp(path.join(EXT_SRC, dir), target, { recursive: true });
+  }
+
+  console.log(`Synced ${newItems.length + replacedItems.length + removedItems.length} items (${newItems.length} new, ${replacedItems.length} replaced, ${removedItems.length} removed)`);
+}
+
+main().catch(err => {
+  console.error('Sync failed:');
+  console.error(err);
+  process.exit(1);
+});

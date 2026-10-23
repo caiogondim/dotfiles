@@ -1,0 +1,136 @@
+#!/usr/bin/env node
+
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import url from 'node:url';
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+const DOTFILES_DIR = path.resolve(__dirname, '..');
+const SKILLS_DIR = path.join(DOTFILES_DIR, 'skills');
+const HOME = os.homedir();
+
+const AGENT_DIRS = {
+  claude: path.join(HOME, '.claude', 'skills'),
+  pi: path.join(HOME, '.pi', 'agent', 'skills'),
+  gemini: path.join(HOME, '.gemini', 'antigravity', 'skills'),
+};
+
+async function getDirectories(source) {
+  try {
+    const entries = await fs.readdir(source, { withFileTypes: true });
+    return entries
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name);
+  } catch (err) {
+    if (err.code === 'ENOENT') return [];
+    throw err;
+  }
+}
+
+async function diffSkill(srcDir, destDir) {
+  const skillName = path.basename(srcDir);
+  const targetSkillDir = path.join(destDir, skillName);
+
+  try {
+    await fs.access(targetSkillDir);
+    return { skill: skillName, status: 'replace' };
+  } catch {
+    return { skill: skillName, status: 'new' };
+  }
+}
+
+async function syncSkill(srcDir, destDir) {
+  const skillName = path.basename(srcDir);
+  const targetSkillDir = path.join(destDir, skillName);
+
+  await fs.rm(targetSkillDir, { recursive: true, force: true });
+  await fs.mkdir(targetSkillDir, { recursive: true });
+  await fs.cp(srcDir, targetSkillDir, { recursive: true });
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const apply = args.includes('--apply');
+  let agents = ['claude', 'pi', 'gemini'];
+
+  const agentFlagIndex = args.indexOf('--agent');
+  if (agentFlagIndex !== -1 && agentFlagIndex + 1 < args.length) {
+    const selectedAgent = args[agentFlagIndex + 1];
+    if (!AGENT_DIRS[selectedAgent]) {
+      console.error(`Unknown agent: ${selectedAgent}`);
+      console.error(`Available: ${Object.keys(AGENT_DIRS).join(', ')}`);
+      process.exit(1);
+    }
+    agents = [selectedAgent];
+  }
+
+  if (!apply) {
+    console.log('🔍 Dry run — pass --apply to sync\n');
+  }
+
+  let totalNew = 0;
+  let totalReplace = 0;
+
+  for (const agent of agents) {
+    const targetDir = AGENT_DIRS[agent];
+    const diffs = [];
+
+    // Shared skills
+    const sharedDir = path.join(SKILLS_DIR, 'shared');
+    for (const skill of await getDirectories(sharedDir)) {
+      diffs.push(await diffSkill(path.join(sharedDir, skill), targetDir));
+    }
+
+    // Agent-specific skills
+    const agentDir = path.join(SKILLS_DIR, agent);
+    for (const skill of await getDirectories(agentDir)) {
+      diffs.push(await diffSkill(path.join(agentDir, skill), targetDir));
+    }
+
+    if (diffs.length === 0) continue;
+
+    const newSkills = diffs.filter(d => d.status === 'new');
+    const replacedSkills = diffs.filter(d => d.status === 'replace');
+
+    console.log(`${agent} → ${targetDir}`);
+
+    if (newSkills.length) {
+      console.log(`  new:`);
+      for (const d of newSkills) console.log(`    + ${d.skill}`);
+    }
+    if (replacedSkills.length) {
+      console.log(`  replace:`);
+      for (const d of replacedSkills) console.log(`    ~ ${d.skill}`);
+    }
+
+    totalNew += newSkills.length;
+    totalReplace += replacedSkills.length;
+
+    if (apply) {
+      await fs.mkdir(targetDir, { recursive: true });
+
+      for (const skill of await getDirectories(sharedDir)) {
+        await syncSkill(path.join(sharedDir, skill), targetDir);
+      }
+      for (const skill of await getDirectories(agentDir)) {
+        await syncSkill(path.join(agentDir, skill), targetDir);
+      }
+    }
+
+    console.log('');
+  }
+
+  if (!apply) {
+    console.log(`Would sync ${totalNew + totalReplace} skills (${totalNew} new, ${totalReplace} replaced)`);
+    console.log('Run with --apply to sync');
+  } else {
+    console.log(`Synced ${totalNew + totalReplace} skills (${totalNew} new, ${totalReplace} replaced)`);
+  }
+}
+
+main().catch(err => {
+  console.error('Sync failed:');
+  console.error(err);
+  process.exit(1);
+});

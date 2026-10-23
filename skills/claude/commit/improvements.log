@@ -1,0 +1,2 @@
+[2026-03-18] ACCEPTED: run --stat first, fetch full diff only if needed to avoid truncation on large diffs
+[2026-03-20] ACCEPTED: add Step 1b to stage unstaged files before committing, preferring specific file names over git add -A

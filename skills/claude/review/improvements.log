@@ -1,0 +1,1 @@
+[2026-03-20] ACCEPTED: Add large-diff guidance to A3 — pass file list + repo path to agents instead of raw diff when diff exceeds ~5KB
