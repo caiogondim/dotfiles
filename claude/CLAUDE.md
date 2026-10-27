@@ -78,6 +78,15 @@ meaning.
 - Do not ask about trivial choices that have a conventional default.
   Pick the default and tag it.
 
+# Plan mode
+
+- Never mutate anything while plan mode is active. No file edits, no
+  commands that write, no app or config changes. The plan file is the
+  only exception.
+- Show the plan first. Wait for an explicit go before any step runs.
+- A direct instruction given while plan mode is active still gets a
+  proposal first, not an action.
+
 # Code discipline
 
 - Minimum code first. Nothing speculative, no single-use
