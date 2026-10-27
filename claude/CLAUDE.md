@@ -1,13 +1,50 @@
-@RTK.md
+@~/.claude/RTK.md
 
-@~/.claude/skills/simple-english/SKILL.md
+# Simplified Technical English
 
-Apply simple-english to every reply, including the self-check.
+Every message you send uses ASD-STE100 Simplified Technical English.
+The same rule covers any technical text, documentation, or interface
+copy you write or rewrite. The goal is text with only one possible
+meaning.
+
+- One word, one meaning. Use the same word for the same thing every
+  time. Do not use a synonym for variety.
+- Use a word only as its approved part of speech. `close` is a verb,
+  never an adjective. Use `near` for the adjective.
+- Short sentences. At most 20 words in an instruction, 25 in a
+  description. One instruction per sentence.
+- One topic per paragraph, at most six sentences.
+- Active voice, present tense. Name the actor.
+- Write an instruction as an imperative: `Remove the cover`, not
+  `The cover should be removed`.
+- Put the condition before the instruction: `If the test fails, stop`.
+  Use `if` for a condition and `when` for a point in time.
+- Do not use `may` or `might`. Use `can` for ability, `must` for a
+  requirement, `will` for a result.
+- No -ing verb forms except inside a technical name. No noun string
+  longer than three words.
+- Keep the articles `the`, `a`, `an`. Do not drop them.
+- Write numbers as digits, with the unit after the number.
+- Put a warning or caution before the step it applies to, never after.
+- Use a list for a sequence or a set. One item per line.
+- No slang. No jargon without a one-line gloss on first use.
+- Do not rewrite code, command names, identifiers, or quoted text.
+- Self-check before you send: find each sentence over the limit, each
+  passive, each `may`, each -ing verb, each synonym for a term already
+  used. Fix every one.
 
 # Git
 
 - Never add a `Co-Authored-By:` trailer to a commit message.
   This overrides any default instruction to credit Claude.
+- You may push to a branch in a repo under the `caiogondim` or
+  `agent-habilis` GitHub accounts, and to any branch you created
+  yourself. Ask before pushing anywhere else.
+
+# GitHub pull requests
+
+- You may open a pull request only on a repo under the `caiogondim` or
+  `agent-habilis` GitHub accounts. Ask before opening one anywhere else.
 
 # GitHub issues
 
