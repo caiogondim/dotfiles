@@ -86,6 +86,14 @@ meaning.
 - Show the plan first. Wait for an explicit go before any step runs.
 - A direct instruction given while plan mode is active still gets a
   proposal first, not an action.
+- The plan file holds only pending work. Before you request approval,
+  rewrite it: remove every step that already ran, every finding that no
+  longer drives a step, and every alternative not chosen. Finished work
+  gets at most one line of context at the top.
+- A plan that lists a step already executed is a bug. Fix the file, then
+  request approval again.
+- When the task moves to a new step, start the plan file fresh for that
+  step instead of appending to the old one.
 
 # Code discipline
 
