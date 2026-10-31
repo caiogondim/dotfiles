@@ -94,6 +94,18 @@ const openInRex = async ([sonnet, haiku, opus]: string[]) => {
     await $`rex window ls --json`.text(),
   ).active_window_id as string;
 
+  const { columns, rows, cell_width_px, cell_height_px } = JSON.parse(
+    await $`rex block call size`.text(),
+  );
+  // Hidden blocks start at 80x24. Set the size you will see, so no app redraws on first view.
+  const resize = (block: string, fraction = 1) =>
+    $`rex block call -b ${block} resize ${JSON.stringify({
+      columns: Math.floor(columns * fraction),
+      rows: Math.floor(rows * fraction),
+      cell_width_px,
+      cell_height_px,
+    })}`.quiet();
+
   const topLeft = await rexBlockId(
     $`rex window new agents --cwd ${dir} --json`.quiet(),
   );
@@ -104,6 +116,10 @@ const openInRex = async ([sonnet, haiku, opus]: string[]) => {
   const topRight = await split(topLeft, "right");
   const bottomLeft = await split(topLeft, "below");
   const bottomRight = await split(topRight, "below");
+
+  await Promise.all(
+    [topLeft, topRight, bottomLeft, bottomRight].map((pane) => resize(pane, 0.5)),
+  );
 
   const send = (block: string, command: string) =>
     $`rex send -b ${block} ${command + "\n"}`;
@@ -116,6 +132,7 @@ const openInRex = async ([sonnet, haiku, opus]: string[]) => {
     const block = await rexBlockId(
       $`rex window new ${label} --cwd ${dir} --json`.quiet(),
     );
+    await resize(block);
     await send(block, command);
   }
 
