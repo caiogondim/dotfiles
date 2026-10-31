@@ -14,6 +14,12 @@ if (!room) {
   process.exit(2);
 }
 
+const terminal = process.env.TERM_PROGRAM;
+if (terminal !== "ghostty" && terminal !== "rex") {
+  console.error(`unsupported terminal: TERM_PROGRAM=${terminal ?? ""} (need ghostty or rex)`);
+  process.exit(2);
+}
+
 const worktreePath = async (branch: string) => {
   const result = await $`grove go ${branch} -p`.quiet().nothrow();
   return result.exitCode === 0 ? result.text().trim() : undefined;
@@ -37,7 +43,7 @@ const founderPrompt =
 const claude = (model: string, prompt: string) =>
   `cl --model ${model} ${quote(prompt)}`;
 
-const script = `
+const ghosttyScript = `
 on run argv
   set dir to item 1 of argv
   tell application "Ghostty"
@@ -76,6 +82,52 @@ on run argv
 end run
 `;
 
-await $`osascript -e ${script} ${dir} ${claude("sonnet", founderPrompt)} ${claude("haiku", join)} ${claude("opus", join)}`;
+const openInGhostty = async (commands: string[]) => {
+  await $`osascript -e ${ghosttyScript} ${dir} ${commands}`;
+};
+
+const rexBlockId = async (command: Promise<{ text(): string }>) =>
+  JSON.parse((await command).text()).block_ids[0] as string;
+
+const openInRex = async ([sonnet, haiku, opus]: string[]) => {
+  const origWindow = JSON.parse(
+    await $`rex window ls --json`.text(),
+  ).active_window_id as string;
+
+  const topLeft = await rexBlockId(
+    $`rex window new agents --cwd ${dir} --json`.quiet(),
+  );
+  const split = (anchor: string, direction: string) =>
+    rexBlockId(
+      $`rex split -b ${anchor} --split=${direction} --cwd ${dir} --json`.quiet(),
+    );
+  const topRight = await split(topLeft, "right");
+  const bottomLeft = await split(topLeft, "below");
+  const bottomRight = await split(topRight, "below");
+
+  const send = (block: string, command: string) =>
+    $`rex send -b ${block} ${command + "\n"}`;
+  await send(topLeft, sonnet);
+  await send(topRight, haiku);
+  await send(bottomLeft, haiku);
+  await send(bottomRight, opus);
+
+  for (const [label, command] of [["lg", "lg"], ["nvim", "nvim"]]) {
+    const block = await rexBlockId(
+      $`rex window new ${label} --cwd ${dir} --json`.quiet(),
+    );
+    await send(block, command);
+  }
+
+  await $`rex focus ${origWindow}`;
+};
+
+const commands = [
+  claude("sonnet", founderPrompt),
+  claude("haiku", join),
+  claude("opus", join),
+];
+
+await (terminal === "rex" ? openInRex : openInGhostty)(commands);
 
 console.log(dir);
