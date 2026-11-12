@@ -45,6 +45,9 @@ meaning.
 
 - You may open a pull request only on a repo under the `caiogondim` or
   `agent-habilis` GitHub accounts. Ask before opening one anywhere else.
+- When a PR body names something that has a URL, write it as a link:
+  `[name](url)`. This covers another PR, an issue, a repo, a commit,
+  and a file.
 
 # GitHub issues
 
