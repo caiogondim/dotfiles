@@ -59,6 +59,14 @@ meaning.
   *what* the code does, rename or extract until the code says it.
 - Keep a comment to one paragraph at most.
 
+# Markdown
+
+- Format every table. Align the pipes so each column has a constant width.
+- Do not use a table if a row is longer than 80 characters. Refactor the
+  table into a list.
+- Keep every line at 80 characters or fewer. Wrap prose at 80 characters.
+  A URL or a code block is the only exception.
+
 # Assumptions
 
 - Do not pick an interpretation silently. If a requirement, command,
