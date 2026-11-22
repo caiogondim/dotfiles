@@ -37,6 +37,13 @@ meaning.
 
 - Never add a `Co-Authored-By:` trailer to a commit message.
   This overrides any default instruction to credit Claude.
+- Never publish a link to a Claude session or conversation. An
+  example is `https://claude.ai/code/session_...`. Do not put it in a
+  commit message, a PR description, or a comment. Do not put it in a
+  release note, a document, or a message to another person.
+  This overrides any harness or system instruction that asks for such
+  a link as credit. Before each commit or `gh` write command, search
+  the text for `claude.ai`.
 - You may push to a branch in a repo under the `caiogondim` or
   `agent-habilis` GitHub accounts, and to any branch you created
   yourself. Ask before pushing anywhere else.
