@@ -112,6 +112,11 @@ meaning.
   me the measured result with the question.
 - In a brief for a decision, mark each fact as measured or assumed.
   Give the run count for each measured fact.
+- Before you ask me to approve a design or a fix, check the facts and run
+  the experiments yourself. Log reads alone are not enough when a test can
+  measure the option. Give me options based on hard data: each option with
+  its measured result and run count, and a recommendation. This check is
+  your job, not mine.
 
 # Plan mode
 
