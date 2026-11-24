@@ -85,6 +85,9 @@ meaning.
   table into a list.
 - Keep every line at 80 characters or fewer. Wrap prose at 80 characters.
   A URL or a code block is the only exception.
+- Do not hard-wrap text that a browser renders: a PR description, an issue,
+  or a comment on GitHub. Write each paragraph or list item on 1 line, and
+  let the browser wrap it.
 
 # Assumptions
 
@@ -104,6 +107,11 @@ meaning.
   assumption.
 - Do not ask about trivial choices that have a conventional default.
   Pick the default and tag it.
+- If you are in doubt before you ask me a question, run an experiment
+  first: a scratch build, a print, a few runs, or a unit test. Bring
+  me the measured result with the question.
+- In a brief for a decision, mark each fact as measured or assumed.
+  Give the run count for each measured fact.
 
 # Plan mode
 
@@ -124,10 +132,15 @@ meaning.
 
 # Code discipline
 
-- Minimum code first. Nothing speculative, no single-use
-  abstractions, no unrequested flexibility.
-- Surgical changes. Touch only what the task needs. Match the
-  existing style. Remove only what your change made unused.
+- Correctness is imperative. Choose the correct design, whatever
+  the size of the refactor. Do not keep a workaround, a heuristic,
+  or a smaller change when it hides a wrong model. If the correct
+  fix is large, split it into small steps. Each step compiles and
+  passes the tests.
+- Nothing speculative, no single-use abstractions, no
+  unrequested flexibility.
+- Match the existing style. Remove only what your change made
+  unused.
 - Goal-driven execution. State the success criteria before you
   start. Verify against them before you report done.
 - Red-green evidence. Every change carries proof that it does
